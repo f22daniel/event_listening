@@ -4,7 +4,7 @@ from websockets import connect
 import asyncio
 
 # add your blockchain connection information
-infura_url = 'https://goerli.infura.io/v3/815e996eff9c4caa8cfe1349781148b6'
+infura_url = 'https://goerli.infura.io/v3/{YOUR_INFURA_API}'
 w3 = Web3(Web3.HTTPProvider(infura_url))
 
 contract_address = Web3.to_checksum_address("0x5b6c5f2032C2483251C36DA4EAd2EEe9504694dd")
@@ -47,7 +47,7 @@ def log_loop(event_filter):
 # Main function that is run asynchronously and independently of the rest of the program
 async def get_event():
     # Initiates the connection between your dapp and the network
-    async with connect("wss://goerli.infura.io/ws/v3/815e996eff9c4caa8cfe1349781148b6") as ws:
+    async with connect("wss://goerli.infura.io/ws/v3/{YOUR_INFURA_API}") as ws:
         await ws.send(json.dumps({"id": 1, "method": "eth_subscribe", "params": ["logs", {"address": [f'{contract_address}']}]}))
         # Wait for the subscription completion.
         subscription_response = await ws.recv()
